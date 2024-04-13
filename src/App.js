@@ -1,4 +1,4 @@
-import ReactRoutes from './routes'
+import ReactRoutes from './routes/HomeRoutes'
 
 function App() {
   return (
