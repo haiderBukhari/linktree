@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function PricingPlan() {
+    const Navigate = useNavigate();
     return (
         <div className="max-w-[876px] mt-10 mx-auto">
             <div className="flex gap-5 max-md:flex-col max-md:gap-0 mx-auto">
@@ -60,9 +62,9 @@ export default function PricingPlan() {
                             <span className="">$97</span>
                             <span className="text-lg  text-gray-950">/month</span>
                         </div>
-                        <div className="justify-center items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
+                        <button onClick={()=>{Navigate('/login?payment=Monthly')}} className="justify-center cursor-pointer items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
                             Subscribe Now
-                        </div>
+                        </button>
                     </div>
                 </div>
                 <div className="flex flex-col ml-5 w-5/12 max-md:ml-0 max-md:w-full mx-auto" style={{boxShadow: '0px 4px 13px 0px #00000099', borderRadius: "20px"}}>
@@ -122,9 +124,9 @@ export default function PricingPlan() {
                             <span className="">$970</span>
                             <span className="text-lg  text-gray-950">/year</span>
                         </div>
-                        <div className="justify-center items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
+                        <button onClick={()=>{Navigate('/login?payment=Yearly')}} className="cursor-pointer justify-center items-center px-16 py-2 mt-10 text-2xl font-semibold leading-10 text-center text-white bg-indigo-400 rounded-xl max-md:px-5 max-md:mt-10">
                             Subscribe Now
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
