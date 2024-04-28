@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import VerifyEmailPopup from "../VerifyEmailPopup";
 
 export default function Register() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const nameRef = useRef(null);
     const Navigate = useNavigate();
+    const [open, setOpen] = React.useState(false);
 
     const registerUser = async () => {
         const userData = {
@@ -20,7 +22,7 @@ export default function Register() {
                     'Content-Type': 'application/json'
                 },
             }).then(()=>{
-                Navigate('/login')
+                setOpen(true);
             })
         } catch (error) {
             console.error("Error registering user:", error);
@@ -84,6 +86,7 @@ export default function Register() {
                     </div>
                 </div>
             </div>
+            <VerifyEmailPopup open={open} setOpen={setOpen} email={emailRef?.current?.value}/>
         </div>
     );
 }

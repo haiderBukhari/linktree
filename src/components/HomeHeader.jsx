@@ -18,7 +18,7 @@ export default function Header() {
                     <div>
                     <Link to='/about'>About</Link>
                     </div>
-                    <div>FAQs</div>
+                    <Link to='/faqs'>FAQs</Link>
                 </div>
             </div>
             <div className="flex gap-5 justify-between px-5 text-xl font-medium leading-8">

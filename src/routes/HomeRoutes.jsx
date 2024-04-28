@@ -9,28 +9,40 @@ import Register from '../components/Authentication/Register';
 import SpinningWheel from '../components/wheel';
 import GameManagement from '../pages/GameManagement';
 import CustomerReviews from '../pages/Reviews';
+import Faqs from '../pages/faqs';
 import Settings from '../pages/Settings';
 import PaymentSuccess from '../components/Authentication/PaymentSuccess';
+import AccountManagement from '../components/AccountManagement';
+import PaymentHistory from '../components/PaymentHistory';
+import { useSelector } from 'react-redux'
+import VerifyAuth from '../components/VerifyAuth';
 
-const index = () => {
+const Index = () => {
+  const userId = useSelector(state=>state.authentication.userId);
   return (
     <>
-      <Header />
+    {!userId && <Header />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/game" element={<GameManagement />} />
-        <Route path="/reviews" element={<CustomerReviews />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={!userId ? <Home /> : <GameManagement/>} />
+        <Route path="/about" element={!userId ? <About /> : <GameManagement/>} />
+        <Route path="/pricing" element={ !userId ? <Pricing /> : <GameManagement/>} />
+        <Route path="/faqs" element={!userId ? <Faqs /> : <GameManagement/>} />
+        <Route path="/register" element={!userId ? <Register /> : <GameManagement/>} />
+        <Route path="/login" element={!userId ? <Login /> : <GameManagement/>} />
+
+        <Route path="/game" element={ userId ? <GameManagement /> : <Home/>} />
+        <Route path="/reviews" element={userId ? <CustomerReviews /> : <Home/>} />
+        <Route path="/settings" element={userId ? <Settings /> : <Home/>} />
+        <Route path="/accounts" element={userId ? <AccountManagement /> : <Home/>} />
+        <Route path="/history" element={userId ? <PaymentHistory /> : <Home/>} />
         <Route path="/success" element={<PaymentSuccess />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/verify" element={<VerifyAuth />} />
         <Route path="/wheel" element={<SpinningWheel />} />
       </Routes>
-      <Footer />
+      {!userId && <Footer />}
+      {/*  */}
     </>
   )
 }
 
-export default index
+export default Index

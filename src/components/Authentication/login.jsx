@@ -2,11 +2,16 @@ import * as React from "react";
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import VerifyEmailPopup from "../VerifyEmailPopup";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../store/features/AuthenticationSlice";
 
 export default function Login() {
     const emailRef = React.useRef(null);
     const passwordRef = React.useRef(null);
+    const dispatch = useDispatch();
     const Navigate = useNavigate();
+    const [open, setOpen] = React.useState(false);
 
     const [searchParams] = useSearchParams();
     const paymentType = searchParams.get('payment');
@@ -16,27 +21,39 @@ export default function Login() {
             email: emailRef.current.value,
             password: passwordRef.current.value
         };
-        console.log(process.env.REACT_BACKEND_PORT)
         try {
             axios.get(`${process.env.REACT_APP_BACKEND_PORT}/auth?email=${userData.email}&password=${userData.password}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
             }).then(async (res) => {
-                if(!res.data.payment){
+                if(!res.data.isVerified){
+                    setOpen(true);
+                }
+                else if(!res.data.payment){
                     if(!paymentType){
                         Navigate('/pricing')
                     }else{
                         if(paymentType.toLowerCase() === 'monthly'){
                             await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/checkout/monthly?userId=${res.data.userId}`).then((res) => {
                                 window.open(res.data.session.url)
-                                console.log(res)
                             })
                         }else{
+                            await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/checkout/yearly?userId=${res.data.userId}`).then((res) => {
+                                window.open(res.data.session.url)
+                            })
                         }
                     }
+                }else{
+                    dispatch(registerUser({
+                        userId: res.data.userId,
+                        name: res.data.name,
+                        jwtToken: res.data.token
+                    }))
+                    Navigate('/game')
                 }
-                console.log("User registered successfully:", res);
+            }).catch((err) => {
+                console.error(err)
             })
         } catch (error) {
             console.error("Error registering user:", error);
@@ -98,15 +115,16 @@ export default function Login() {
                 </div>
                 <div className="flex flex-col pt-8 w-full text-base font-semibold leading-6 whitespace-nowrap">
                     <div className="flex flex-col px-6 pb-6 w-full bg-white">
-                        <div onClick={handleSubmit} className="justify-center text-center items-center px-5 py-2.5 text-white bg-indigo-400 rounded-lg shadow-sm">
+                        <button onClick={handleSubmit} className="justify-center text-center items-center px-5 py-2.5 text-white bg-indigo-400 rounded-lg shadow-sm cursor-pointer">
                             Confirm
-                        </div>
-                        <div className="justify-center text-center items-center px-5 py-2.5 mt-3 text-black bg-white rounded-lg border border-gray-300 border-solid shadow-sm">
+                        </button>
+                        <div onClick={()=>{Navigate('/')}} className="justify-center text-center items-center px-5 py-2.5 mt-3 text-black bg-white rounded-lg cursor-pointer border border-gray-300 border-solid shadow-sm">
                             Cancel
                         </div>
                     </div>
                 </div>
             </div>
+            <VerifyEmailPopup open={open} setOpen={setOpen} email={emailRef?.current?.value}/>
         </div>
     );
 }

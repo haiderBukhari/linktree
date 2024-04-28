@@ -7,6 +7,7 @@ export default function GameManagement() {
         value: ''
     };
     const [data, setData] = useState(new Array(8).fill(temp))
+    const [uploadLogo, setUploadLogo] = useState(true);
     return (
         <div className="flex mb-20">
             <AsideHeader />
@@ -36,29 +37,40 @@ export default function GameManagement() {
                                 <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                     <div className="text-2xl max-md:max-w-full">Brand Name</div>
                                     <div className="flex flex-col items-start pr-20 mt-3.5 text-base max-md:pr-5 max-md:max-w-full ">
-                                        <div className="flex gap-3 justify-center">
-                                            <input type='radio' className="w-[20px] ml-1" id="uploadLogo" name="selection" checked/>
-                                            <label htmlFor="uploadLogo" className="my-auto">Upload logo</label>
+                                        <div onClick={() => { setUploadLogo(true) }} className="flex gap-3 justify-center">
+                                            <input type='radio' className="w-[20px] ml-1" id="uploadLogo" name="selection" checked={uploadLogo} />
+                                            <label htmlFor="uploadLogo" id="uploadLogo" className="my-auto">Upload logo</label>
                                         </div>
-                                        <div className="flex gap-3 justify-center mt-1.5">
-                                            <input type='radio' className="w-[20px] ml-1" id="enterBrandName" name="selection" />
-                                            <label htmlFor="enterBrandName" className="my-auto">Enter brand name</label>
+                                        <div onClick={() => { setUploadLogo(false) }} className="flex gap-3 justify-center mt-1.5">
+                                            <input type='radio' className="w-[20px] ml-1" id="enterBrandName" name="selection" checked={!uploadLogo} />
+                                            <label htmlFor="enterBrandName" id="enterBrandName" className="my-auto">Enter brand name</label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
-                                    <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                                            <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
-                                            <div className="flex flex-col ml-5 w-[16%] max-md:ml-0 max-md:w-full">
-                                                <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
-                                                    Upload
+                                {
+                                    uploadLogo ? (<div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                                        <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                            <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                                                <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
+                                                <div className="flex flex-col ml-5 w-[16%] max-md:ml-0 max-md:w-full">
+                                                    <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
+                                                        Upload
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div>) : (<div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
+                                        <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                            <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+                                                <div className="mt-4 text-base font-medium leading-5 text-black w-full">
+                                                    Brand Name
+                                                    <input className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your Brand Name`} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>)
+                                }
 
                                 <div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">

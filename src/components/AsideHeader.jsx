@@ -1,9 +1,18 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../store/features/AuthenticationSlice';
 
 const AsideHeader = () => {
     const Location = useLocation();
     const Navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch(logoutUser());
+        Navigate('/login')
+    }
+
     return (
         <div className="flex flex-col mr-10 leading-[100%] max-w-[280px] w-full">
             <div className="flex flex-col px-5 pt-5 pb-20 w-full bg-gray-100">
@@ -28,7 +37,7 @@ const AsideHeader = () => {
                             />
                             <div className="my-auto">Dashboard</div>
                         </div>
-                        <div className="flex gap-3 p-2.5 mt-3.5">
+                        <div onClick={()=>{Navigate('/accounts')}} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname ==='/accounts' && 'bg-[#8497FC] bg-opacity-25'}`}>
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b017c6aca6b5480099eb7c245d9d9b5d6b002f158d1c92cff798a8725015ad0?apiKey=cf358c329e0d49a792d02d32277323ef&"
@@ -75,7 +84,7 @@ const AsideHeader = () => {
                             />
                             <div className="my-auto">Settings</div>
                         </div>
-                        <div className="flex gap-3 p-2.5 mt-3.5 rounded-md">
+                        <div onClick={()=>{Navigate('/history')}} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname ==='/history' && 'bg-[#8497FC] bg-opacity-25'}`}>
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/18169ef36f571eb46211b765f3f3e4e2f435ec3daf87ae648872bd24ba147897?apiKey=cf358c329e0d49a792d02d32277323ef&"
@@ -84,7 +93,7 @@ const AsideHeader = () => {
                             <div className="my-auto">Payment History</div>
                         </div>
                     </div>
-                    <div className="flex gap-3 p-2.5 mt-2.5 ml-3 whitespace-nowrap">
+                    <div onClick={logout} className="flex gap-3 p-2.5 mt-2.5 ml-3 whitespace-nowrap">
                         <img
                             loading="lazy"
                             src="https://cdn.builder.io/api/v1/image/assets/TEMP/a34cdd663df3ea160a5e3efb6d2b67c3621b6cb392ffec29be33774096da946f?apiKey=cf358c329e0d49a792d02d32277323ef&"
