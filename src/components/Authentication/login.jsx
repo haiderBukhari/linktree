@@ -48,7 +48,8 @@ export default function Login() {
                     dispatch(registerUser({
                         userId: res.data.userId,
                         name: res.data.name,
-                        jwtToken: res.data.token
+                        jwtToken: res.data.token,
+                        isAdmin: res.data.name === 'Admin' ? true : false
                     }))
                     Navigate('/game')
                 }

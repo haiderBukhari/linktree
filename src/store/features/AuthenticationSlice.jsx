@@ -28,6 +28,7 @@ const initialState = loadState() || {
     userId: 0,
     name: '',
     jwtToken: '',
+    isAdmin: false
 };
 
 export const authenticationSlice = createSlice({
@@ -38,12 +39,14 @@ export const authenticationSlice = createSlice({
             state.userId = action.payload.userId;
             state.name = action.payload.name;
             state.jwtToken = action.payload.jwtToken;
+            state.isAdmin = action.payload.isAdmin;
             saveState(state); // Save state to local storage
         },
         logoutUser: (state) => {
             state.userId = 0;
             state.name = '';
             state.jwtToken = '';
+            state.isAdmin = false;
             saveState(state); // Save state to local storage
         },
     },

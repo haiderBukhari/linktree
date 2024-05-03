@@ -16,6 +16,8 @@ import AccountManagement from '../components/AccountManagement';
 import PaymentHistory from '../components/PaymentHistory';
 import { useSelector } from 'react-redux'
 import VerifyAuth from '../components/VerifyAuth';
+import UserManagement from '../pages/UserManagement'
+import Subscription from '../pages/Subscription'
 
 const Index = () => {
   const userId = useSelector(state=>state.authentication.userId);
@@ -38,6 +40,9 @@ const Index = () => {
         <Route path="/success" element={<PaymentSuccess />} />
         <Route path="/verify" element={<VerifyAuth />} />
         <Route path="/wheel" element={<SpinningWheel />} />
+
+        <Route path="/user-management" element={userId ? <UserManagement /> : <Home/>} />
+        <Route path="/subscription" element={userId ? <Subscription /> : <Home/>} />
       </Routes>
       {!userId && <Footer />}
       {/*  */}

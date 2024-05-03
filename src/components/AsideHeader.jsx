@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../store/features/AuthenticationSlice';
 
 const AsideHeader = () => {
@@ -12,6 +12,8 @@ const AsideHeader = () => {
         dispatch(logoutUser());
         Navigate('/login')
     }
+
+    const isAdmin = useSelector(state => state.authentication.isAdmin);
 
     return (
         <div className="flex flex-col mr-10 leading-[100%] max-w-[280px] w-full">
@@ -37,38 +39,71 @@ const AsideHeader = () => {
                             />
                             <div className="my-auto">Dashboard</div>
                         </div>
-                        <div onClick={()=>{Navigate('/accounts')}} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname ==='/accounts' && 'bg-[#8497FC] bg-opacity-25'}`}>
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b017c6aca6b5480099eb7c245d9d9b5d6b002f158d1c92cff798a8725015ad0?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[18px]"
-                            />
-                            <div className="my-auto">Account Management</div>
-                        </div>
-                        <div onClick={()=>{Navigate('/game')}} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname ==='/game' && 'bg-[#8497FC] bg-opacity-25'}`}>
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/44e5b60070049e5d2d007c6439222d7b9c7350335eaf8564e414d56c4facca8e?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[18px]"
-                            />
-                            <div className="flex-auto my-auto">Game Management</div>
-                        </div>
-                        <div className="flex gap-3 p-2.5 mt-3.5">
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cfe905d3fddf8af89b233e4ae1f7f3edf0f522538d19de6bffa145b688697ee2?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[18px]"
-                            />
-                            <div className="my-auto">Flyer Customization</div>
-                        </div>
-                        <div onClick={()=>{Navigate('/reviews')}} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname ==='/reviews' && 'bg-[#8497FC] bg-opacity-25'}`}>
-                            <img
-                                loading="lazy"
-                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/d20cffe5d2d85d40bbd4885090ef46de93a89d1ba8a5332cdd99874ab3f44be9?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                                className="shrink-0 aspect-square w-[18px]"
-                            />
-                            <div className="my-auto">Customer Reviews</div>
-                        </div>
+                        {
+                            !isAdmin && <>
+                                <div onClick={() => { Navigate('/accounts') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/accounts' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b017c6aca6b5480099eb7c245d9d9b5d6b002f158d1c92cff798a8725015ad0?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="my-auto">Account Management</div>
+                                </div>
+                                <div onClick={() => { Navigate('/game') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/game' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/44e5b60070049e5d2d007c6439222d7b9c7350335eaf8564e414d56c4facca8e?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="flex-auto my-auto">Game Management</div>
+                                </div>
+                                <div className="flex gap-3 p-2.5 mt-3.5">
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/cfe905d3fddf8af89b233e4ae1f7f3edf0f522538d19de6bffa145b688697ee2?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="my-auto">Flyer Customization</div>
+                                </div>
+                                <div onClick={() => { Navigate('/reviews') }} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname === '/reviews' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d20cffe5d2d85d40bbd4885090ef46de93a89d1ba8a5332cdd99874ab3f44be9?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="my-auto">Customer Reviews</div>
+                                </div>
+                            </>
+                        }
+
+                        {
+                            isAdmin && <>
+                                <div onClick={() => { Navigate('/user-management') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/user-management' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f263971a40afd4316e3583297949cb8c04fec8a4a90d6a3ee175bf8dcea7cd56?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="my-auto">User Management</div>
+                                </div>
+                                <div onClick={() => { Navigate('/subscription') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/subscription' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/fedb3eb9f42b1aa7e1799b755edfbce7a8fba5a9e2f4cede826619c6d84b2589?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="my-auto">Subscription</div>
+                                </div>
+                                {/* <div onClick={() => { Navigate('/user-management') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/user-management' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/f263971a40afd4316e3583297949cb8c04fec8a4a90d6a3ee175bf8dcea7cd56?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="my-auto">User Management</div>
+                                </div> */}
+                            </>
+                        }
                     </div>
                 </div>
                 <div className="flex flex-col mt-3.5 mb-60 text-xs tracking-wide text-slate-800">
@@ -76,7 +111,7 @@ const AsideHeader = () => {
                         OTHERS
                     </div>
                     <div className="flex flex-col mt-2.5 ml-3">
-                        <div onClick={()=>{Navigate('/settings')}} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname ==='/settings' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                        <div onClick={() => { Navigate('/settings') }} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname === '/settings' && 'bg-[#8497FC] bg-opacity-25'}`}>
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/8eb21f38b279ed6c9265babf52586876a1bd635c06970b30dc5bb859ad1222bc?apiKey=cf358c329e0d49a792d02d32277323ef&"
@@ -84,7 +119,7 @@ const AsideHeader = () => {
                             />
                             <div className="my-auto">Settings</div>
                         </div>
-                        <div onClick={()=>{Navigate('/history')}} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname ==='/history' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                        <div onClick={() => { Navigate('/history') }} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname === '/history' && 'bg-[#8497FC] bg-opacity-25'}`}>
                             <img
                                 loading="lazy"
                                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/18169ef36f571eb46211b765f3f3e4e2f435ec3daf87ae648872bd24ba147897?apiKey=cf358c329e0d49a792d02d32277323ef&"
