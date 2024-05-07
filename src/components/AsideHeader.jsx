@@ -86,13 +86,21 @@ const AsideHeader = () => {
                                     />
                                     <div className="my-auto">User Management</div>
                                 </div>
-                                <div onClick={() => { Navigate('/subscription') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/subscription' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                {/* <div onClick={() => { Navigate('/subscription') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/subscription' && 'bg-[#8497FC] bg-opacity-25'}`}>
                                     <img
                                         loading="lazy"
                                         src="https://cdn.builder.io/api/v1/image/assets/TEMP/fedb3eb9f42b1aa7e1799b755edfbce7a8fba5a9e2f4cede826619c6d84b2589?apiKey=cf358c329e0d49a792d02d32277323ef&"
                                         className="shrink-0 aspect-square w-[18px]"
                                     />
                                     <div className="my-auto">Subscription</div>
+                                </div> */}
+                                <div onClick={() => { Navigate('/trial-management') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/trial-management' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/fedb3eb9f42b1aa7e1799b755edfbce7a8fba5a9e2f4cede826619c6d84b2589?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="my-auto">Trial Management</div>
                                 </div>
                                 {/* <div onClick={() => { Navigate('/user-management') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/user-management' && 'bg-[#8497FC] bg-opacity-25'}`}>
                                     <img

@@ -17,6 +17,7 @@ import PaymentHistory from '../components/PaymentHistory';
 import { useSelector } from 'react-redux'
 import VerifyAuth from '../components/VerifyAuth';
 import UserManagement from '../pages/UserManagement'
+import TrialManagement from '../pages/TrialManagement'
 import Subscription from '../pages/Subscription'
 
 const Index = () => {
@@ -42,6 +43,7 @@ const Index = () => {
         <Route path="/wheel" element={<SpinningWheel />} />
 
         <Route path="/user-management" element={userId ? <UserManagement /> : <Home/>} />
+        <Route path="/trial-management" element={userId ? <TrialManagement /> : <Home/>} />
         <Route path="/subscription" element={userId ? <Subscription /> : <Home/>} />
       </Routes>
       {!userId && <Footer />}
