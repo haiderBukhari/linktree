@@ -51,7 +51,11 @@ export default function Login() {
                         jwtToken: res.data.token,
                         isAdmin: res.data.name === 'Admin' ? true : false
                     }))
-                    Navigate('/game')
+                    if(res.data.name === 'Admin'){
+                        Navigate('/trial-management')
+                    }else{
+                        Navigate('/game')
+                    }
                 }
             }).catch((err) => {
                 console.error(err)
