@@ -9,12 +9,14 @@ export default function Register() {
     const nameRef = useRef(null);
     const Navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [isTrial, setIsTrial] = React.useState(false);
 
     const registerUser = async () => {
         const userData = {
             name: nameRef.current.value,
             email: emailRef.current.value,
-            password: passwordRef.current.value
+            password: passwordRef.current.value,
+            isTrial: isTrial
         };
         try {
             axios.post(`${process.env.REACT_APP_BACKEND_PORT}/auth`, userData, {
@@ -69,6 +71,17 @@ export default function Register() {
                                     <input ref={passwordRef} className="flex flex-col justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 text-gray-500 bg-white rounded-lg border border-gray-300 border-solid shadow-sm" type="password" placeholder="••••••••" />
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <label className="text-sm font-medium leading-5 text-black mt-4">Registering for Trial or Pay First</label>
+                    <div className="flex mt-2">
+                        <div onClick={()=>{setIsTrial(false)}} className="mr-7 flex items-center">
+                            <input type='radio' id="pay" name="paymentType"/>
+                            <label htmlFor="pay" className="text-sm font-medium leading-5 text-black ml-2">Pay First</label>
+                        </div>
+                        <div onClick={()=>{setIsTrial(true)}} className="flex items-center">
+                            <input type='radio' id="trial" name="paymentType" />
+                            <label htmlFor="trial" className="text-sm font-medium leading-5 text-black ml-2">Trial</label>
                         </div>
                     </div>
                     <div className="flex gap-0 pr-2 mt-6 text-sm leading-5 justify-between items-center text-gray-600" >
