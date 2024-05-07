@@ -30,7 +30,7 @@ export default function Login() {
                 // if(!res.data.isVerified){
                 //     setOpen(true);
                 // }
-                if(!res.data.payment || res.data.isVerified){
+                if(!res.data.payment && !res.data.isVerified){
                     if(!paymentType){
                         Navigate('/pricing')
                     }else{
