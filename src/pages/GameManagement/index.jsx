@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AsideHeader from "../../components/AsideHeader";
-import './index.css'
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function GameManagement() {
     const [selectedRow, setSelectedRow] = useState(1);
+    const { id } = useParams();
+
     const temp = {
         value: ''
     };
+
+    const Navigate = useNavigate();
     const userId = useSelector(state => state.authentication.userId);
     const [data, setData] = useState(new Array(8).fill(temp))
     const [uploadLogo, setUploadLogo] = useState(true);
@@ -42,52 +48,50 @@ export default function GameManagement() {
         option7: '',
         option8: '',
     })
-    const spinedClick = () => {
-        const wheel = document.querySelector('.wheel');
-        const sections = 8; // Number of colored sections
-        const sectionAngle = 360 / sections;
-      
-        // Calculate the minimum number of spins (at least 3)
-        const minSpins = 3;
-        const totalAngle = minSpins * 360;
-      
-        // Calculate the additional random angle within a section for the final stop
-        const randomAngle = Math.random() * sectionAngle;
-      
-        // Calculate the target section
-        const targetSection = Math.floor(Math.random() * sections);
-      
-        // Calculate the total angle to rotate
-        const finalAngle = totalAngle + (targetSection * sectionAngle) + randomAngle;
-      
-        // Rotate the wheel
-        wheel.style.transition = 'transform 5s ease-in-out';
-        wheel.style.transform = `rotate(${finalAngle}deg)`;
-      
-        // Listen for the transition to finish
-        wheel.addEventListener('transitionend', () => {
-          // Get the final resting angle after animation
-          const finalRestingAngle = parseFloat(wheel.style.transform.split('(')[1].split(')')[0]);
-      
-          // Calculate the landed section (might have decimals due to random offset)
-          const landedSection = finalRestingAngle / sectionAngle;
-      
-          // Get the integer section number representing the landed option
-          const landedOption = Math.floor(landedSection);
-      
-          // Access the option text based on the section number (replace with your logic)
-          let optionText;
-          if (gameFormat && gameFormat.options) {
-            optionText = gameFormat.options[`option${landedOption + 1}`] || `option ${landedOption + 1}`;
-          } else {
-            optionText = `option ${landedOption + 1}`;
-          }
-      
-          // Display an alert with the landed option
-          alert(`Landed on: ${optionText}`);
-        });
-      };
-      
+    useEffect((Item) => {
+        if (id) {
+            try {
+                axios.get(`${process.env.REACT_APP_BACKEND_PORT}/game/update?pageId=${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then((res) => {
+                    setGameFormate(res.data)
+                })
+            } catch (error) {
+                console.error("Error sending email");
+            }
+        }
+    }, [id])
+    const createLandingPage = () => {
+        if (id) {
+            try {
+                axios.put(`${process.env.REACT_APP_BACKEND_PORT}/game/${id}`, {gameFormat}, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then((res) => {
+                    Navigate('/landing-pages')
+                })
+            } catch (error) {
+                console.error("Error sending email");
+            }
+        } else {
+            try {
+                axios.post(`${process.env.REACT_APP_BACKEND_PORT}/game`, { gameFormat }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then((res) => {
+                    Navigate('/landing-pages')
+                })
+            } catch (error) {
+                console.error("Error sending email");
+            }
+
+        }
+    }
+
     const ImageUpload = (event) => {
         const file = event.target.files[0];
 
@@ -176,7 +180,6 @@ export default function GameManagement() {
                                                         <input onChange={ImageUpload} type="file" id="uploadFileInput" style={{ display: "none" }} />
                                                         <label htmlFor="uploadFileInput">Upload</label>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -210,7 +213,7 @@ export default function GameManagement() {
                                     </div>
                                 </div>
 
-                                <div className="container mt-10">
+                                {/* <div className="container mt-10">
                                     <div className="spinBtn" onClick={spinedClick}></div>
                                     <div className="wheel">
                                         <div className="number" style={{ '--i': 1, '--clr': '#8497FC' }}>
@@ -238,7 +241,7 @@ export default function GameManagement() {
                                             <span>{gameFormat.options.option8 || 'option 8'}</span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </>
                         )
                     }
@@ -381,7 +384,11 @@ export default function GameManagement() {
                             </>
                         )
                     }
-
+                    <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
+                        <div onClick={createLandingPage} className="justify-center w-[20%] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
+                            <label htmlFor="uploadFileInput">{`${id ? 'Update Landing Page' : 'Create Landing Page'}`}</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -57,6 +57,14 @@ const AsideHeader = () => {
                                     />
                                     <div className="flex-auto my-auto">Game Management</div>
                                 </div>
+                                <div onClick={() => { Navigate('/landing-pages') }} className={`flex gap-3 p-2.5 mt-3.5 cursor-pointer ${Location.pathname === '/landing-pages' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                                    <img
+                                        loading="lazy"
+                                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/44e5b60070049e5d2d007c6439222d7b9c7350335eaf8564e414d56c4facca8e?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                                        className="shrink-0 aspect-square w-[18px]"
+                                    />
+                                    <div className="flex-auto my-auto">Landing Pages</div>
+                                </div>
                                 <div className="flex gap-3 p-2.5 mt-3.5">
                                     <img
                                         loading="lazy"

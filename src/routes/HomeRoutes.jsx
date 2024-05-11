@@ -19,6 +19,8 @@ import VerifyAuth from '../components/VerifyAuth';
 import UserManagement from '../pages/UserManagement'
 import TrialManagement from '../pages/TrialManagement'
 import Subscription from '../pages/Subscription'
+import AllLandingPages from '../components/AllLandingPages';
+import SpinGame from '../components/SpinGame';
 
 const Index = () => {
   const userId = useSelector(state=>state.authentication.userId);
@@ -34,6 +36,9 @@ const Index = () => {
         <Route path="/login" element={!userId ? <Login /> : <GameManagement/>} />
 
         <Route path="/game" element={ userId ? <GameManagement /> : <Home/>} />
+        <Route path="/landing-pages" element={ userId ? <AllLandingPages /> : <Home/>} />
+        <Route path="/game/:id" element={ userId ? <GameManagement /> : <Home/>} />
+        <Route path="/spin/game/:id" element={ <SpinGame /> } />
         <Route path="/reviews" element={userId ? <CustomerReviews /> : <Home/>} />
         <Route path="/settings" element={userId ? <Settings /> : <Home/>} />
         <Route path="/accounts" element={userId ? <AccountManagement /> : <Home/>} />
