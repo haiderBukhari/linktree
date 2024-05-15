@@ -84,6 +84,8 @@ export default function GameManagement() {
                     },
                 }).then((res) => {
                     Navigate('/landing-pages')
+                }).catch((err) => {
+                    alert(err.response.data.message)
                 })
             } catch (error) {
                 console.error("Error sending email");

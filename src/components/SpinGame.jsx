@@ -122,6 +122,28 @@ const SpinGame = () => {
                     Create your Own Page
                 </Link>
             </div>
+            <div className="flex gap-4 justify-center my-10">
+                <a href={gameFormat?.instagram} target="_blank"><img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/357f101341ddf98f66af8d3f23083bbaca5abcfd9acc131ab16b4f86548f66e9?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                    className="shrink-0 aspect-square w-[25px]"
+                /></a>
+                <a href={gameFormat?.facebook} target="_blank"><img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/3bf7478fb7f2a263892712e4aa14999672df84ec24dda36a9b73c6b87ab35cfa?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                    className="shrink-0 aspect-square w-[25px]"
+                /></a>
+                <a href={gameFormat?.googleMaps} target="_blank"><img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/ad647feebebd6e3ac712531bcfe244603e99a1e02f585c4702345d935b2f1dd6?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                    className="shrink-0 aspect-square w-[25px]"
+                /></a>
+                <a href={gameFormat?.twitter} target="_blank"><img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/981bbe54100ad5fb3359a76a6d80f34022804d47da69407e294c32b6b305e5f3?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                    className="shrink-0 aspect-square w-[25px]"
+                /></a>
+            </div>
         </div>
     )
 }

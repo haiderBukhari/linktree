@@ -1,16 +1,14 @@
-import * as React from "react";
+import React, {useState, useEffect} from "react";
 import AsideHeader from "./AsideHeader";
+import AddAcccountModel from "./AddAccount";
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function AccountManagement() {
     // Sample data object with row names and corresponding values
-
-    const data = [
-        { name: "tastychef92", email: "tastychef92@example.com", plan: "Monthly", status: "Active", lastlogin: "2024-03-06" },
-        { name: "anotheruser", email: "anotheruser@example.com", plan: "Yearly", status: "Inactive", lastlogin: "2024-03-10" },
-        { name: "anotheruser", email: "anotheruser@example.com", plan: "Yearly", status: "Inactive", lastlogin: "2024-03-10" },
-        { name: "anotheruser", email: "anotheruser@example.com", plan: "Yearly", status: "Inactive", lastlogin: "2024-03-10" },
-        // Add more objects as needed
-    ];
+    const [open, setOpen] = useState(false)
+    const userId = useSelector(state => state.authentication.userId);
+    const [data, setData] = useState([]);
 
     const columns = [
         "Name",
@@ -19,6 +17,24 @@ function AccountManagement() {
         "Account Status",
         "Last Login Date"
     ]
+
+    useEffect(() => {
+        try {
+            axios.get(`${process.env.REACT_APP_BACKEND_PORT}/sub/auth/${userId}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => {
+                // console.log(res);
+                const updatedData = res.data?.map((Item) => {
+                    return { name: Item.name, email: Item.email, subScriptionPlan: Item.subScriptionPlan, status: Item.status, lastlogin: Item.lastlogin }
+                })
+                setData(updatedData);
+            })
+        } catch (error) {
+            console.error("error");
+        }
+    }, [])
 
     return (
         <div className="flex mb-20">
@@ -29,23 +45,25 @@ function AccountManagement() {
                         Account Management
                     </div>
                     <div className="flex gap-px p-2.5 text-base font-bold tracking-tight text-white bg-indigo-400 rounded-md h-[46px]">
-                        <div>Add new account</div>
+                        <div onClick={() => setOpen(!open)} className="cursor-pointer">Add new account</div>
                     </div>
                 </div>
                 <div className="flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] max-md:flex-wrap">
                     {columns.map((key, idx) => (
                         <div key={idx} className="font-bold">{key}</div>
                     ))}
-                    <div className="w-[60px]"></div>
+                    <div className="w-[40px]"></div>
                 </div>
 
-                {data.map((row, index) => (
+                {data?.map((row, index) => (
                     <div key={index} className="flex gap-5 justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                        {Object.keys(row).map((key, idx) => (
-                            <div key={idx}>
-                                {row[key]}
-                            </div>
-                        ))}
+                        <div className="flex justify-between w-full pr-20">
+                            <div>{row.name}</div>
+                            <div>{row.email}</div>
+                            <div>{row.subScriptionPlan}</div>
+                            <div>{row.status}</div>
+                            <div>{row.lastlogin || '-'}</div>
+                        </div>
                         <div className="flex">
                             <img
                                 loading="lazy"
@@ -61,6 +79,7 @@ function AccountManagement() {
                     </div>
                 ))}
             </div>
+            <AddAcccountModel open={open} setOpen={setOpen} />
         </div>
     );
 }

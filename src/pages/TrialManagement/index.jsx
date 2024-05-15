@@ -82,7 +82,7 @@ function Index() {
                             <div>{item.createdAt.slice(0, 10)}</div>
                         </div>
                         {
-                            item.isVerified ? <div className="flex">
+                            item.isTrialVerified ? <div className="flex">
                                 <button className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">
                                     Approved
                                 </button>

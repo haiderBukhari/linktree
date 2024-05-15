@@ -49,6 +49,8 @@ export default function Login() {
                         userId: res.data.userId,
                         name: res.data.name,
                         jwtToken: res.data.token,
+                        ownerId: res.data.ownerId,
+                        accountType: res.data.accountType,
                         isAdmin: res.data.name === 'Admin' ? true : false
                     }))
                     if(res.data.name === 'Admin'){

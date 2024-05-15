@@ -28,6 +28,8 @@ const initialState = loadState() || {
     userId: 0,
     name: '',
     jwtToken: '',
+    accountType: '',
+    ownerId: null,
     isAdmin: false
 };
 
@@ -39,7 +41,9 @@ export const authenticationSlice = createSlice({
             state.userId = action.payload.userId;
             state.name = action.payload.name;
             state.jwtToken = action.payload.jwtToken;
+            state.accountType = action.payload.accountType;
             state.isAdmin = action.payload.isAdmin;
+            state.ownerId = action.payload.ownerId;
             saveState(state); // Save state to local storage
         },
         logoutUser: (state) => {
@@ -47,6 +51,8 @@ export const authenticationSlice = createSlice({
             state.name = '';
             state.jwtToken = '';
             state.isAdmin = false;
+            state.accountType = '';
+            state.ownerId = null;
             saveState(state); // Save state to local storage
         },
     },
