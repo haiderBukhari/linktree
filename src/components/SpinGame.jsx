@@ -4,6 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const Picker = require('random-picker').Picker;
+
 const SpinGame = () => {
     const { id } = useParams();
     const [gameFormat, setGameFormate] = useState([])
@@ -15,7 +17,7 @@ const SpinGame = () => {
     useEffect((Item) => {
         if (id) {
             try {
-                axios.get(`${process.env.REACT_APP_BACKEND_PORT}/game/update?pageId=${id}`, {
+                axios.get(`${process.env.REACT_APP_BACKEND_PORT}/game/play?pageId=${id}`, {
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -28,20 +30,40 @@ const SpinGame = () => {
         }
     }, [id])
 
-    const spinedClick = () => {
+    const spinedClick = (gameFormat) => {
         if (!isSpined) {
-            setIsSpined(true)
+            setIsSpined(true);
             const wheel = document.querySelector('.wheel');
-            const options = [0, 45, 90, 135, 180, 225, 270, 315];
-            // Rotate the wheel
-            const randomNumber = Math.floor(Math.random() * 8);
-            setSelectedIndex(randomNumber);
+            // Initialize the random picker with options and corresponding weights
+            const picker = new Picker();
+            picker.option(0, gameFormat.options.option1frequency);
+            picker.option(45, gameFormat.options.option8frequency);
+            picker.option(90, gameFormat.options.option7frequency);
+            picker.option(135, gameFormat.options.option6frequency);
+            picker.option(180, gameFormat.options.option5frequency);
+            picker.option(225, gameFormat.options.option4frequency);
+            picker.option(270, gameFormat.options.option3frequency);
+            picker.option(315, gameFormat.options.option2frequency);
+
+            const selectedOption = picker.pick();
+            console.log(selectedOption)
+            // const randomIndex = picker.options.findIndex(option => option.value === selectedOption);
+            // setSelectedIndex(randomIndex);
             wheel.style.transition = 'transform 5s ease-in-out';
-            wheel.style.transform = `rotate(${360 * 3 + options[randomNumber]}deg)`;
+            wheel.style.transform = `rotate(${360 * 3 + 45}deg)`;
         } else {
             alert('Already spined');
         }
     };
+
+    const updateGame = (gameFormat1) => {
+        const id = gameFormat1._id;
+        axios.put(`${process.env.REACT_APP_BACKEND_PORT}/game/${id}`, { gameFormat: gameFormat1 }, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+    }
 
     const sendEmail = () => {
         if (selectedIndex !== -1 && email) {
@@ -72,7 +94,7 @@ const SpinGame = () => {
             </div>
             <div className='flex max-w-[900px] justify-between mx-auto items-center mt-5'>
                 <div className="container mt-10 mr-10">
-                    <div className="spinBtn" onClick={spinedClick}></div>
+                    <div className="spinBtn" onClick={() => spinedClick(gameFormat)}></div>
                     <div className="wheel">
                         <div className="number" style={{ '--i': 1, '--clr': '#8497FC' }}>
                             <span>{gameFormat?.options?.option1 || 'option 1'}</span>
@@ -123,22 +145,34 @@ const SpinGame = () => {
                 </Link>
             </div>
             <div className="flex gap-4 justify-center my-10">
-                <a href={gameFormat?.instagram} target="_blank"><img
-                    loading="lazy"
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/357f101341ddf98f66af8d3f23083bbaca5abcfd9acc131ab16b4f86548f66e9?apiKey=cf358c329e0d49a792d02d32277323ef&"
-                    className="shrink-0 aspect-square w-[25px]"
-                /></a>
-                <a href={gameFormat?.facebook} target="_blank"><img
+                <a onClick={() => {
+                    const data = { ...gameFormat, instagramClicks: gameFormat.instagramClicks + 1 };
+                    updateGame(data)
+                }} href={gameFormat?.instagram} target="_blank"><img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/357f101341ddf98f66af8d3f23083bbaca5abcfd9acc131ab16b4f86548f66e9?apiKey=cf358c329e0d49a792d02d32277323ef&"
+                        className="shrink-0 aspect-square w-[25px]"
+                    /></a>
+                <a onClick={() => {
+                    const data = { ...gameFormat, facebookClicks: gameFormat.facebookClicks + 1 };
+                    updateGame(data)
+                }} href={gameFormat?.facebook} target="_blank"><img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/3bf7478fb7f2a263892712e4aa14999672df84ec24dda36a9b73c6b87ab35cfa?apiKey=cf358c329e0d49a792d02d32277323ef&"
                     className="shrink-0 aspect-square w-[25px]"
                 /></a>
-                <a href={gameFormat?.googleMaps} target="_blank"><img
+                <a onClick={() => {
+                    const data = { ...gameFormat, googleMapsClicks: gameFormat.googleMapsClicks + 1 };
+                    updateGame(data)
+                }} href={gameFormat?.googleMaps} target="_blank"><img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/ad647feebebd6e3ac712531bcfe244603e99a1e02f585c4702345d935b2f1dd6?apiKey=cf358c329e0d49a792d02d32277323ef&"
                     className="shrink-0 aspect-square w-[25px]"
                 /></a>
-                <a href={gameFormat?.twitter} target="_blank"><img
+                <a onClick={() => {
+                    const data = { ...gameFormat, twitterClicks: gameFormat.twitterClicks + 1 };
+                    updateGame(data)
+                }} href={gameFormat?.twitter} target="_blank"><img
                     loading="lazy"
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/981bbe54100ad5fb3359a76a6d80f34022804d47da69407e294c32b6b305e5f3?apiKey=cf358c329e0d49a792d02d32277323ef&"
                     className="shrink-0 aspect-square w-[25px]"

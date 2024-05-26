@@ -19,7 +19,7 @@ function AllLandingPages() {
                 },
             }).then((res) => {
                 const FData = res.data?.map((Item, index) => {
-                    return { pageNo: index + 1, createdDate: Item.createdAt?.slice(0, 10), id: Item._id }
+                    return { pageNo: index + 1, resturantName: Item.resturantName, createdDate: Item.createdAt?.slice(0, 10), id: Item._id }
                 })
                 setData(FData);
                 console.log(res.data);
@@ -43,6 +43,7 @@ function AllLandingPages() {
 
     const columns = [
         "Page Number",
+        "Resturant Name",
         "Created Date",
     ]
 
@@ -60,12 +61,13 @@ function AllLandingPages() {
                         {columns?.map((key, idx) => (
                             <div key={idx} className="font-bold">{key}</div>
                         ))}
-                        <div className=""></div>
+                        <div className="w-[250px]"></div>
                     </div>
                     {data?.map((item, index) => (
                         <div key={index} className="flex gap-5 justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                             <div className="flex justify-between w-full pr-20">
                                 <div>{item.pageNo}</div>
+                                <div>{item.resturantName}</div>
                                 <div>{item.createdDate}</div>
                             </div>
                             <div className="flex">

@@ -27,10 +27,10 @@ export default function Login() {
                     'Content-Type': 'application/json'
                 },
             }).then(async (res) => {
-                // if(!res.data.isVerified){
-                //     setOpen(true);
-                // }
-                if(!res.data.payment && !res.data.isVerified){
+                if(!res.data.isVerified){
+                    setOpen(true);
+                }
+                if(!res.data.payment && !res.data.isTrial){
                     if(!paymentType){
                         Navigate('/pricing')
                     }else{
