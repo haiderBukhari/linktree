@@ -3,6 +3,7 @@ import './index.css'
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ReviewModel from './ReviewModel';
 
 const Picker = require('random-picker').Picker;
 
@@ -12,6 +13,7 @@ const SpinGame = () => {
     const [isSpined, setIsSpined] = useState(false)
     const [email, setEmail] = useState('')
     const Navigate = useNavigate();
+    const [reviewModel, setReviewModel] = useState(false)
 
     const [selectedIndex, setSelectedIndex] = useState(-1)
     useEffect((Item) => {
@@ -44,13 +46,10 @@ const SpinGame = () => {
             picker.option(225, gameFormat.options.option4frequency);
             picker.option(270, gameFormat.options.option3frequency);
             picker.option(315, gameFormat.options.option2frequency);
-
             const selectedOption = picker.pick();
-            console.log(selectedOption)
-            // const randomIndex = picker.options.findIndex(option => option.value === selectedOption);
-            // setSelectedIndex(randomIndex);
+            setSelectedIndex(selectedOption === 0 ? 1 : selectedOption===45 ? 8 : selectedOption=== 90 ? 7 : selectedOption=== 90 ? 7 : selectedOption=== 135 ? 6 : selectedOption=== 180 ? 5 : selectedOption=== 225 ? 4 : selectedOption=== 270 ? 3 : 2)
             wheel.style.transition = 'transform 5s ease-in-out';
-            wheel.style.transform = `rotate(${360 * 3 + 45}deg)`;
+            wheel.style.transform = `rotate(${360*3 + selectedOption}deg)`;
         } else {
             alert('Already spined');
         }
@@ -131,7 +130,15 @@ const SpinGame = () => {
                     </div>
                     <div className="mt-8 w-full text-sm leading-5">Email</div>
                     <input onChange={(e) => { setEmail(e.target.value) }} placeholder='Enter your email' className="justify-center px-3.5 py-2.5 mt-1.5 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400" value={email} />
-                    <div onClick={sendEmail} className="justify-center items-center px-5 py-2.5 mt-8 w-full text-base font-semibold leading-6 text-white whitespace-nowrap text-center bg-indigo-400 rounded-lg shadow-sm">
+                    <div onClick={()=>{
+                        if(email && reviewModel){
+                            sendEmail();
+                        }else{
+                            if(isSpined){
+                                setReviewModel(!reviewModel)
+                            }
+                        }
+                    }} className="justify-center cursor-pointer items-center px-5 py-2.5 mt-8 w-full text-base font-semibold leading-6 text-white whitespace-nowrap text-center bg-indigo-400 rounded-lg shadow-sm">
                         Confirm
                     </div>
                     <div className="mt-8 w-full text-xl text-center">
@@ -178,6 +185,7 @@ const SpinGame = () => {
                     className="shrink-0 aspect-square w-[25px]"
                 /></a>
             </div>
+            <ReviewModel open={reviewModel} setOpen={setReviewModel} gameFormat={gameFormat} sendEmail={sendEmail}/>
         </div>
     )
 }

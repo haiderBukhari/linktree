@@ -54,9 +54,9 @@ export default function Login() {
                         isAdmin: res.data.name === 'Admin' ? true : false
                     }))
                     if(res.data.name === 'Admin'){
-                        Navigate('/trial-management')
+                        Navigate('/admin/dashboard')
                     }else{
-                        Navigate('/game')
+                        Navigate('/dashboard')
                     }
                 }
             }).catch((err) => {

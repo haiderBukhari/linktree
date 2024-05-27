@@ -17,11 +17,14 @@ import PaymentHistory from '../components/PaymentHistory';
 import { useSelector } from 'react-redux'
 import VerifyAuth from '../components/VerifyAuth';
 import UserManagement from '../pages/UserManagement'
+import ResturantPages from '../pages/ResturantPages'
 import TrialManagement from '../pages/TrialManagement'
 import Subscription from '../pages/Subscription'
 import AllLandingPages from '../components/AllLandingPages';
 import SpinGame from '../components/SpinGame';
 import AdminSettings from './../pages/AdminSettings';
+import User from '../pages/Dashboards/User';
+import AdminDashboard from '../pages/Dashboards/Admin';
 
 const Index = () => {
   const userId = useSelector(state=>state.authentication.userId);
@@ -44,12 +47,15 @@ const Index = () => {
         <Route path="/reviews" element={userId ? <CustomerReviews /> : <Home/>} />
         <Route path="/settings" element={userId ? <Settings /> : <Home/>} />
         <Route path="/admin/settings" element={userId ? <AdminSettings /> : <Home/>} />
+        <Route path="/all/pages" element={userId ? <ResturantPages /> : <Home/>} />
         <Route path="/accounts" element={userId ? <AccountManagement /> : <Home/>} />
         <Route path="/history" element={userId ? <PaymentHistory /> : <Home/>} />
         <Route path="/success" element={<PaymentSuccess />} />
         <Route path="/verify" element={<VerifyAuth />} />
+        <Route path="/dashboard" element={<User />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/dashboard/:id" element={<User />} />
         <Route path="/wheel" element={<SpinningWheel />} />
-
         <Route path="/user-management" element={userId ? <UserManagement /> : <Home/>} />
         <Route path="/trial-management" element={userId ? <TrialManagement /> : <Home/>} />
         <Route path="/subscription" element={userId ? <Subscription /> : <Home/>} />
