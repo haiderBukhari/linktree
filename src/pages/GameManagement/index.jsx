@@ -17,6 +17,7 @@ export default function GameManagement() {
     const userId = useSelector(state => state.authentication.userId);
     const [data, setData] = useState(new Array(8).fill(temp))
     const [uploadLogo, setUploadLogo] = useState(true);
+    const [total, setTotal] = useState(100);
     const [gameFormat, setGameFormate] = useState({
         ownerId: userId,
         brandName: '',
@@ -166,7 +167,7 @@ export default function GameManagement() {
                     {
                         selectedRow === 1 && (
                             <>
-                                <div className="flex flex-col my-9 w-full max-w-[1050px] max-md:max-w-full">
+                                <div className="flex flex-col my-5 w-full max-w-[1050px] max-md:max-w-full">
                                     <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                                             <div className="mt-4 text-base font-medium leading-5 text-black w-full">
@@ -174,6 +175,13 @@ export default function GameManagement() {
                                                 <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your Brand Name`} value={gameFormat.resturantName} />
                                             </div>
                                         </div>
+                                        <div className="flex mt-4 gap-5 max-md:flex-col max-md:gap-0">
+                                            <div className="mt-4 text-base font-medium leading-5 text-black w-full">
+                                                Resturant Address
+                                                <input onChange={(e) => { setGameFormate({ ...gameFormat, resturantName: e.target.value }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter Resturant Address`} value={gameFormat.resturantName} />
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
@@ -224,19 +232,47 @@ export default function GameManagement() {
                                         <div className="flex flex-col mt-3.5 max-md:max-w-full">
                                             {
                                                 data.map((Item, index) => (
-                                                    <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full">
+                                                    <div className="mt-4 text-base font-medium leading-5 text-black max-md:max-w-full" key={index}>
                                                         Option {index + 1}
                                                         <div className="flex">
-                                                            <input onChange={(e) => { setGameFormate({ ...gameFormat, options: { ...gameFormat.options, [`option${index + 1}`]: e.target.value } }) }} className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full" type="text" placeholder={`Enter your option ${index + 1}`} value={gameFormat.options[`option${index + 1}`]} />
-                                                            <select onChange={(e) => { setGameFormate({ ...gameFormat, options: { ...gameFormat.options, [`option${index + 1}frequency`]: e.target.value } }) }} className="md:ml-2 flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-[100px]">
-                                                                <option disabled selected={gameFormat.options[`option${index + 1}frequency`] === ''}>Select</option>
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    setGameFormate({
+                                                                        ...gameFormat,
+                                                                        options: { ...gameFormat.options, [`option${index + 1}`]: e.target.value }
+                                                                    })
+                                                                }}
+                                                                className="flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-full"
+                                                                type="text"
+                                                                placeholder={`Enter your option ${index + 1}`}
+                                                                value={gameFormat.options[`option${index + 1}`]}
+                                                            />
+                                                            <select
+                                                                onChange={(e) => {
+                                                                    const selectedValue = Number(e.target.value);
+                                                                    const previousValue = gameFormat.options[`option${index + 1}frequency`] || 0;
+
+                                                                    // Calculate new total
+                                                                    const newTotal = total + previousValue - selectedValue;
+
+                                                                    setTotal(newTotal);
+                                                                    setGameFormate({
+                                                                        ...gameFormat,
+                                                                        options: { ...gameFormat.options, [`option${index + 1}frequency`]: selectedValue }
+                                                                    });
+                                                                }}
+                                                                className="md:ml-2 flex flex-col justify-center px-3.5 py-2.5 mt-3 text-base leading-6 bg-white rounded-lg border border-gray-300 border-solid shadow-sm text-zinc-400 max-md:max-w-full outline-none w-[100px]"
+                                                                value={gameFormat.options[`option${index + 1}frequency`] || ''}
+                                                            >
+                                                                <option disabled value="">Select</option>
                                                                 {
-                                                                    optionsArray.map((Item) => (
-                                                                        <option selected={gameFormat.options[`option${index + 1}frequency`] === Item} value={Item}>{Item}</option>
+                                                                    new Array(total + (gameFormat.options[`option${index + 1}frequency`] || 0) + 1).fill(0).map((_, optionIndex) => (
+                                                                        <option key={optionIndex} value={optionIndex}>
+                                                                            {optionIndex}
+                                                                        </option>
                                                                     ))
                                                                 }
                                                             </select>
-                                                            {/* <input onChange={(e) => { setGameFormate({ ...gameFormat, options: { ...gameFormat.options, [`option${index + 1}`]: e.target.value } }) }}  type="text" placeholder={`Enter your option ${index + 1}`} value={gameFormat.options[`option${index + 1}`]} /> */}
                                                         </div>
                                                     </div>
                                                 ))

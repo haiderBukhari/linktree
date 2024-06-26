@@ -74,7 +74,7 @@ function Index() {
                         <div className="flex">
                             <Switch
                                 checked={checkedStates[index]}
-                                onChange={() => handleChange(index)}
+                                onChange={() => handleChange(row._id)}
                                 inputProps={{ 'aria-label': 'controlled' }}
                             />
                             <button className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">

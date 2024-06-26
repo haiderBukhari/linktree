@@ -145,9 +145,10 @@ const AsideHeader = () => {
                     </div>
                     <div className="flex flex-col mt-2.5 ml-3">
                         {
-                            accountType === 'main' && <div onClick={() => { 
-                                if(isAdmin) Navigate('/admin/settings')
-                                else Navigate('/settings') }} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname === '/settings' || Location.pathname==='/admin/settings' && 'bg-[#8497FC] bg-opacity-25'}`}>
+                            accountType === 'main' && <div onClick={() => {
+                                if (isAdmin) Navigate('/admin/settings')
+                                else Navigate('/settings')
+                            }} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${Location.pathname === '/settings' || Location.pathname === '/admin/settings' && 'bg-[#8497FC] bg-opacity-25'}`}>
                                 <img
                                     loading="lazy"
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/8eb21f38b279ed6c9265babf52586876a1bd635c06970b30dc5bb859ad1222bc?apiKey=cf358c329e0d49a792d02d32277323ef&"
@@ -157,11 +158,13 @@ const AsideHeader = () => {
                             </div>
                         }
                         {
-                            accountType === 'main' && <div onClick={() => { if(isAdmin){
-                                Navigate('/all/pages')
-                            }else {
-                                Navigate('/history')
-                            } }} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${(Location.pathname === '/history' || Location.pathname === '/all/pages') && 'bg-[#8497FC] bg-opacity-25'}`}>
+                            accountType === 'main' && <div onClick={() => {
+                                if (isAdmin) {
+                                    Navigate('/all/pages')
+                                } else {
+                                    Navigate('/history')
+                                }
+                            }} className={`flex gap-3 p-2.5 cursor-pointer mt-3.5 ${(Location.pathname === '/history' || Location.pathname === '/all/pages') && 'bg-[#8497FC] bg-opacity-25'}`}>
                                 <img
                                     loading="lazy"
                                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/18169ef36f571eb46211b765f3f3e4e2f435ec3daf87ae648872bd24ba147897?apiKey=cf358c329e0d49a792d02d32277323ef&"

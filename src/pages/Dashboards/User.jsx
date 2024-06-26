@@ -129,13 +129,13 @@ const User = () => {
                                 <p className='font-semibold pb-3' style={{ margin: "3px 0", fontSize: "18px", color: "#000" }}>Instagram</p>
                                 <div className="container-goal">
                                     <div className="circular-progress1" style={{ backgroundColor: "#DAD7FE" }}>
-                                        <div className="value-container">{`${((data.instaCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}%`}</div>
+                                        <div className="value-container">{`${((data.instaCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}%`}</div>
                                     </div>
                                     <style >{`
                     .circular-progress1 {
                         background: conic-gradient(
-                            #8497FC ${((data.instaCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) * 3.6}deg,
-                            #DAD7FE ${((data.instaCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}deg
+                            #8497FC ${((data.instaCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0 * 3.6}deg,
+                            #DAD7FE ${((data.instaCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}deg
                             );
                         }
                         `}</style>
@@ -145,13 +145,13 @@ const User = () => {
                                 <p className='font-semibold pb-3' style={{ margin: "3px 0", fontSize: "18px", color: "#000" }}>Facebook</p>
                                 <div className="container-goal">
                                     <div className="circular-progress" style={{ backgroundColor: "#6AD2FF" }}>
-                                        <div className="value-container">{`${((data.facebookCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}%`}</div>
+                                        <div className="value-container">{`${((data.facebookCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}%`}</div>
                                     </div>
                                     <style >{`
                     .circular-progress {
                         background: conic-gradient(
-                            #6AD2FF ${((data.facebookCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) * 3.6}deg,
-                            #CCF8FE ${((data.facebookCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}deg
+                            #6AD2FF ${((data.facebookCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0 * 3.6}deg,
+                            #CCF8FE ${((data.facebookCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}deg
                             );
                         }
                         `}</style>
@@ -161,13 +161,13 @@ const User = () => {
                                 <p className='font-semibold pb-3' style={{ margin: "3px 0", fontSize: "18px", color: "#000" }}>Tik Tok</p>
                                 <div className="container-goal">
                                     <div className="circular-progress2" style={{ backgroundColor: "#FDFDAF" }}>
-                                        <div className="value-container">{`${((data.twitterCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}%`}</div>
+                                        <div className="value-container">{`${((data.twitterCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}%`}</div>
                                     </div>
                                     <style >{`
                     .circular-progress2 {
                         background: conic-gradient(
-                            #FCFC3A ${((data.twitterCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) * 3.6}deg,
-                            #FDFDAF ${((data.twitterCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}deg
+                            #FCFC3A ${((data.twitterCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0 * 3.6}deg,
+                            #FDFDAF ${((data.twitterCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}deg
                             );
                         }
                         `}</style>
@@ -177,13 +177,13 @@ const User = () => {
                                 <p className='font-semibold pb-3' style={{ margin: "3px 0", fontSize: "18px", color: "#000" }}>Google Maps</p>
                                 <div className="container-goal">
                                     <div className="circular-progress3" style={{ backgroundColor: "#91D7E0" }}>
-                                        <div className="value-container">{`${((data.googleMapsCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}%`}</div>
+                                        <div className="value-container">{`${((data.googleMapsCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}%`}</div>
                                     </div>
                                     <style >{`
                     .circular-progress3 {
                         background: conic-gradient(
-                            #02A0FC ${((data.googleMapsCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) * 3.6}deg,
-                            #91D7E0 ${((data.googleMapsCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0)}deg
+                            #02A0FC ${((data.googleMapsCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0 * 3.6}deg,
+                            #91D7E0 ${((data.googleMapsCount/(data.instaCount + data.facebookCount + data.googleMapsCount + data.twitterCount))*100).toFixed(0) || 0}deg
                             );
                         }
                         `}</style>
