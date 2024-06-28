@@ -141,7 +141,7 @@ const Index = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col ml-5 max-w-[300px] w-full max-md:ml-0 max-md:w-full">
+                            <div className="flex flex-col ml-5 max-w-full md:max-w-[300px] w-full max-md:ml-0 max-md:w-full">
                                 <div className="flex flex-col self-stretch my-auto text-center max-md:mt-10">
                                     <div className="text-2xl font-semibold text-black">
                                         Profile Picture
@@ -171,7 +171,7 @@ const Index = () => {
                 </div>
 
                 <div className="flex flex-col mt-10 mr-2 bg-white w-full max-md:px-5">
-                    <div className='p-6 mx-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]'>
+                    <div className='p-6 md:mx-5 w-full md:w-auto shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]'>
                         <div className="text-2xl font-semibold text-black max-md:max-w-full">
                             Change password
                         </div>
@@ -213,7 +213,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-                <div className='flex justify-end w-full mt-4 md:mr-10'>
+                <div className='flex justify-end w-full mt-10 md:mt-4 mr-10'>
                     <div onClick={updateProfile}
                         className="ml-7 px-6 py-4 mt-2 mb-6 text-base font-bold leading-4 text-white whitespace-nowrap cursor-pointer bg-indigo-400 rounded-xl max-md:px-5 justify-end"
                     >

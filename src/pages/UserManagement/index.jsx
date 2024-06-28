@@ -55,32 +55,28 @@ function Index() {
                         User Management
                     </div>
                 </div>
-                <div className="flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] max-md:flex-wrap">
+                <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
                     {columns.map((key, idx) => (
-                        <div key={idx} className="font-bold">{key}</div>
+                        <div key={idx} className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{key}</div>
                     ))}
                     <div className="w-[60px]"></div>
                 </div>
 
                 {data.map((row, index) => (
-                    <div key={index} className="flex gap-5 justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                        <div className="flex justify-between w-full pr-20">
-                            <div>{row.name}</div>
-                            <div>{row.email}</div>
-                            <div>{row.phoneNumber || '-'}</div>
-                            <div>{row.access || '-'}</div>
-                            <div>{row.pages || '-'}</div>
-                        </div>
-                        <div className="flex">
-                            <Switch
-                                checked={checkedStates[index]}
-                                onChange={() => handleChange(row._id)}
-                                inputProps={{ 'aria-label': 'controlled' }}
-                            />
-                            <button className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">
-                                Blocked
-                            </button>
-                        </div>
+                    <div key={index} className="min-w-0 flex gap-5 mt-5 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto w-full">
+                        <div className="w-[100px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.name}</div>
+                        <div className="w-[180px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.email}</div>
+                        <div className="w-[140px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.phoneNumber || '-'}</div>
+                        <div className="w-[170px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.access || '-'}</div>
+                        <div className="w-[10px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{row.pages || '-'}</div>
+                        <Switch
+                            checked={checkedStates[index]}
+                            onChange={() => handleChange(row._id)}
+                            inputProps={{ 'aria-label': 'controlled' }}
+                        />
+                        <button className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">
+                            Blocked
+                        </button>
                     </div>
                 ))}
             </div>

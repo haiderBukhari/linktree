@@ -151,14 +151,14 @@ export default function GameManagement() {
                 <div className="mt-2 text-2xl font-bold leading-10 text-black">
                     Set up your landing page
                 </div>
-                <div className="flex gap-5 justify-between mt-12 text-xl font-semibold tracking-tight text-blue-950 max-md:flex-wrap max-md:mt-10">
-                    <div onClick={() => { setSelectedRow(1) }} className={`cursor-pointer justify-center px-5 py-2.5  ${selectedRow === 1 ? 'bg-indigo-400 text-white' : 'text-black'} rounded-3xl`}>
+                <div className="flex gap-5 justify-between mt-12 text-xl font-semibold tracking-tight text-blue-950 max-md:mt-10">
+                    <div onClick={() => { setSelectedRow(1) }} className={`cursor-pointer text-center justify-center px-5 py-2.5  ${selectedRow === 1 ? 'bg-indigo-400 text-white' : 'text-black'} rounded-3xl`}>
                         Page Content
                     </div>
-                    <div onClick={() => { setSelectedRow(2) }} className={`cursor-pointer justify-center px-5 py-2.5 whitespace-nowrap ${selectedRow === 2 ? 'bg-indigo-400 text-white' : 'text-black'} rounded-3xl`}>
+                    <div onClick={() => { setSelectedRow(2) }} className={`cursor-pointer text-center justify-center px-5 py-2.5 whitespace-nowrap ${selectedRow === 2 ? 'bg-indigo-400 text-white' : 'text-black'} rounded-3xl`}>
                         Design
                     </div>
-                    <div onClick={() => { setSelectedRow(3) }} className={`cursor-pointer justify-center px-5 py-2.5 ${selectedRow === 3 ? 'bg-indigo-400 text-white' : 'text-black'} rounded-3xl`}>
+                    <div onClick={() => { setSelectedRow(3) }} className={`cursor-pointer text-center justify-center px-5 py-2.5 ${selectedRow === 3 ? 'bg-indigo-400 text-white' : 'text-black'} rounded-3xl`}>
                         Social Media links
                     </div>
                 </div>
@@ -200,12 +200,12 @@ export default function GameManagement() {
 
                                 {
                                     uploadLogo ? (<div className="flex flex-col mt-9 w-full max-w-[1050px] max-md:max-w-full">
-                                        <div className="flex flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
+                                        <div className="flex flex-row md:flex-col p-5 font-medium text-black bg-white leading-[140%] max-md:max-w-full mr-2 md:mr-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                                             <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                                                 {
                                                     gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <div className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" />
                                                 }
-                                                <div className="flex flex-col ml-5 w-[16%] max-md:ml-0 max-md:w-full">
+                                                <div className="flex flex-row ml-5 w-[16%] max-md:ml-0 max-md:w-full">
                                                     <div className="justify-center self-stretch px-0.5 py-2.5 my-auto w-full text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
                                                         <input onChange={ImageUpload} type="file" id="uploadFileInput" style={{ display: "none" }} />
                                                         <label htmlFor="uploadFileInput">Upload</label>
@@ -453,7 +453,7 @@ export default function GameManagement() {
                         )
                     }
                     <div className="flex max-w-[1050px] ml-5 mr-4 mt-5 justify-end max-md:ml-0 max-md:w-full">
-                        <div onClick={createLandingPage} className="justify-center w-[20%] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
+                        <div onClick={createLandingPage} className="justify-center w-[200px] self-stretch px-3 py-2.5 my-auto text-base font-semibold leading-6 text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl max-md:mt-10">
                             <label htmlFor="uploadFileInput">{`${id ? 'Update Landing Page' : 'Create Landing Page'}`}</label>
                         </div>
                     </div>

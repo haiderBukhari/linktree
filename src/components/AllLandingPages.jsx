@@ -57,29 +57,23 @@ function AllLandingPages() {
                     </div>
                 </div>
                 <div className="w-[900px] m-auto">
-                    <div className="flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] max-md:flex-wrap">
-                        {columns?.map((key, idx) => (
-                            <div key={idx} className="font-bold">{key}</div>
+                    <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
+                        {columns.map((key, idx) => (
+                            <div key={idx} className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{key}</div>
                         ))}
-                        <div className="w-[250px]"></div>
+                        <div className="w-[250px] flex-shrink-0"></div>
                     </div>
                     {data?.map((item, index) => (
-                        <div key={index} className="flex gap-5 justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                            <div className="flex justify-between w-full pr-20">
-                                <div>{item.pageNo}</div>
-                                <div>{item.resturantName}</div>
-                                <div>{item.createdDate}</div>
-                            </div>
-                            <div className="flex">
-                                <button onClick={()=>{Navigate(`/game/${item.id}`)}} className="justify-center self-stretch p-2.5 font-semibold text-center text-black whitespace-nowrap rounded-xl mr-6 border-2 border-indigo-400 border-solid bg-white">
-                                    Edit
-                                </button>
-                            </div>
-                            <div className="flex">
-                                <button onClick={()=>{navigator.clipboard.writeText(`${window.location.origin}/spin/game/${item.id}`)}} className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 mr-6 rounded-xl border-2 border-indigo-400 border-solid hover:opacity-65 transition-all ">
-                                    Copy Link
-                                </button>
-                            </div>
+                        <div key={index} className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto w-full">
+                            <div className="w-[140px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{item.pageNo}</div>
+                            <div className="w-[150px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{item.resturantName}</div>
+                            <div className="w-[100px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{item.createdDate}</div>
+                            <button onClick={() => { Navigate(`/game/${item.id}`) }} className="justify-center self-stretch p-2.5 font-semibold text-center text-black whitespace-nowrap rounded-xl mr-6 border-2 border-indigo-400 border-solid bg-white">
+                                Edit
+                            </button>
+                            <button onClick={() => { navigator.clipboard.writeText(`${window.location.origin}/spin/game/${item.id}`) }} className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 mr-6 rounded-xl border-2 border-indigo-400 border-solid hover:opacity-65 transition-all ">
+                                Copy Link
+                            </button>
                         </div>
                     ))}
                 </div>

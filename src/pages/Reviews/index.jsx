@@ -36,22 +36,22 @@ const Index = () => {
                     Customer Reviews
                 </div>
                 <div className="flex flex-col w-full max-w-4xl mt-10 text-base font-medium leading-6 text-black">
-                    <div className="flex w-full gap-5 justify-between p-5 font-bold bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] mb-6">
-                        <div className='flex-1'>Name</div>
-                        <div className='flex-1'>Rating</div>
-                        <div className='flex-1'>Submission Date</div>
-                        <div className='flex-1'>Submission Time</div>
-                        <div className='flex-1'>Review</div>
+                    <div className="min-w-0 flex gap-5 mt-10 mb-5 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Name</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Rating</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Submission Date</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Submission Time</div>
+                        <div className='flex-1 font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis'>Review</div>
                     </div>
                     <div className="flex flex-col gap-5 w-full bg-white shadow-sm max-md:flex-wrap">
                         {
                             data?.map((Item) => (
-                                <div className="flex items-center justify-between p-5 border-b max-md:flex-col max-md:gap-5 shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
-                                    <div className='flex-1'>{Item.name}</div>
-                                    <div className='flex-1'><StarRating rating={Item.rating} /></div>
-                                    <div className='flex-1 text-center'>{Item.reviewDate?.slice(0, 10)}</div>
-                                    <div className='flex-1 text-center'>{Item.reviewTime}</div>
-                                    <div className="leading-6 flex-1 text-start">{Item.text}</div>
+                                <div className="min-w-0 flex gap-5 mt-3  justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto w-full">
+                                    <div className='font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis flex-1'>{Item.name}</div>
+                                    <div className='font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis flex-1'><StarRating rating={Item.rating} /></div>
+                                    <div className='font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis flex-1 text-center'>{Item.reviewDate?.slice(0, 10)}</div>
+                                    <div className='font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis flex-1 text-center'>{Item.reviewTime}</div>
+                                    <div className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis leading-6 flex-1 text-start">{Item.text}</div>
                                 </div>
                             ))
                         }

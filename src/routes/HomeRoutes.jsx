@@ -26,6 +26,7 @@ import AdminSettings from './../pages/AdminSettings';
 import User from '../pages/Dashboards/User';
 import AdminDashboard from '../pages/Dashboards/Admin';
 import { useState } from 'react';
+import BookADemo from '../pages/Demo';
 
 const Index = () => {
   const userId = useSelector(state => state.authentication.userId);
@@ -42,6 +43,7 @@ const Index = () => {
           <Route path="/pricing" element={!userId ? <Pricing /> : <GameManagement />} />
           <Route path="/faqs" element={!userId ? <Faqs /> : <GameManagement />} />
           <Route path="/register" element={!userId ? <Register /> : <GameManagement />} />
+          <Route path="/demo" element={!userId ? <BookADemo /> : <GameManagement />} />
           <Route path="/login" element={!userId ? <Login /> : <GameManagement />} />
 
           <Route path="/game" element={userId ? accountType === 'main' ? <GameManagement /> : <AllLandingPages /> : <Home />} />

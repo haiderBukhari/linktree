@@ -1,4 +1,4 @@
-import  {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import AsideHeader from "./AsideHeader";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -16,7 +16,7 @@ function PaymentHistory() {
                 },
             }).then((res) => {
                 const updatedData = res.data.data?.map((Item) => {
-                    return {plan: Item.plan, ammount: `${Item.amount}$`, Date: Item.plan.slice(0, 10), method: Item.paymentMethod}
+                    return { plan: Item.plan, ammount: `${Item.amount}$`, Date: Item.plan.slice(0, 10), method: Item.paymentMethod }
                 })
                 setData(updatedData);
                 console.log(res.data.data);
@@ -55,16 +55,16 @@ function PaymentHistory() {
                     </div>
                 </div>
                 <div className="w-[900px] m-auto">
-                    <div className="flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] max-md:flex-wrap">
+                    <div className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto">
                         {columns?.map((key, idx) => (
-                            <div key={idx} className="font-bold">{key}</div>
+                            <div key={idx} className="font-bold flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{key}</div>
                         ))}
                     </div>
 
                     {data?.map((row, index) => (
                         <div key={index} className="flex gap-5 justify-between items-center p-5 mt-5 bg-white max-md:flex-wrap shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)]">
                             {Object.keys(row).map((key, idx) => (
-                                <div key={idx}>
+                                <div className={`w-[80px] md:w-[70px] ${idx === 0 && 'md:w-[200px] mr-16'} ${idx === 1 && 'md:w-[80px]'} flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis`} key={idx}>
                                     {row[key]}
                                 </div>
                             ))}

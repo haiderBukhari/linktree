@@ -91,8 +91,8 @@ const SpinGame = () => {
                     gameFormat.logo ? <img src={gameFormat.logo} alt="logo" className="shrink-0 rounded-full bg-zinc-300 h-[100px] w-[100px] max-md:mt-10" /> : <h1 className='font-bold font-sans text-2xl italic'>{gameFormat?.brandName}</h1>
                 }
             </div>
-            <div className='flex max-w-[900px] justify-between mx-auto items-center mt-5'>
-                <div className="container mt-10 mr-10">
+            <div className='flex flex-col md:flex-row max-w-[900px] justify-between mx-auto items-center mt-5'>
+                <div className="container mt-10 mr-10 mb-10 md:mb-0">
                     <div className="spinBtn" onClick={() => spinedClick(gameFormat)}></div>
                     <div className="wheel">
                         <div className="number" style={{ '--i': 1, '--clr': '#8497FC' }}>

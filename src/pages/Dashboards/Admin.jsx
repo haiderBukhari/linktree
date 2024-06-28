@@ -1,40 +1,20 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css'
 import AsideHeader from '../../components/AsideHeader';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { format, subDays } from 'date-fns';
+import axios from 'axios';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const generateData = () => {
     const labels = [];
-    const values = [];
     for (let i = 0; i < 10; i++) {
         const date = subDays(new Date(), 10 * i);
         labels.unshift(format(date, 'dd-MM-yyyy'));
-        values.unshift(Math.floor(Math.random() * 100)); // Random value for demonstration
     }
-    return { labels, values };
-};
-
-const { labels, values } = generateData();
-
-const data = {
-    labels,
-    datasets: [
-        {
-            label: 'Value',
-            data: values,
-            fill: false,
-            backgroundColor: 'rgba(75,192,192,0.2)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderWidth: 2,
-            pointRadius: 5,
-            pointHoverRadius: 8,
-        },
-    ],
+    return { labels };
 };
 
 const options = {
@@ -45,7 +25,7 @@ const options = {
         },
         title: {
             display: true,
-            text: 'Reviews Analytics',
+            text: 'Subscriptions',
         },
     },
     scales: {
@@ -58,45 +38,60 @@ const options = {
         y: {
             title: {
                 display: true,
-                text: 'Value',
+                text: 'Subscription Rate',
             },
             beginAtZero: true,
         },
     },
 };
 
-const SpreadGraph = () => (
-    <div style={{ width: '1000px', height: '400px' }}>
+const SpreadGraph = ({ data }) => (
+    <div className='w-auto md:w-[1000px]' style={{ height: '400px' }}>
         <Line data={data} options={options} />
     </div>
 );
 
 const AdminDashboard = () => {
-    const [progressValue, setProgressValue] = useState(0);
-    const progressEndValue = 100;
-    const speed = 50;
-    const [completionRate, setCompletitionRate] = useState(0);
-
+    const [data, setData] = useState({ users: 0, revenue: 0 });
+    const [dateRecord, setDateRecord] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const completionRate1 = (22 / 100) * 100 || 0;
-        setCompletitionRate(completionRate1.toFixed(0))
-        const progress = setInterval(() => {
-            setProgressValue((prevValue) => {
-                if (prevValue < progressEndValue) {
-                    return prevValue + 1;
-                } else {
-                    clearInterval(progress);
-                    return prevValue;
-                }
-            });
-        }, speed);
-
-        return () => {
-            clearInterval(progress);
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/auth/dashboard`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                setData(res.data);
+            } catch (error) {
+                console.error("Error fetching dashboard data", error);
+            }
         };
-    }, [progressValue]); // Run the effect only once when the component mounts
+        fetchData();
+    }, []);
 
+    useEffect(() => {
+        const fetchPaymentHistory = async () => {
+            try {
+                const res = await axios.get(`${process.env.REACT_APP_BACKEND_PORT}/payment/history`, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                setLoading(false);
+                const records = res.data.data.map(data => data.subscriptionCount);
+                console.log(records)
+                setDateRecord(records);
+            } catch (error) {
+                console.error("Error fetching payment history", error);
+            }
+        };
+        fetchPaymentHistory();
+    }, []);
+
+    const { labels } = generateData();
 
     return (
         <div className='flex flex-row'>
@@ -107,7 +102,7 @@ const AdminDashboard = () => {
                         <div className="justify-center text-center self-start p-2.5 mt-6 text-lg font-medium tracking-wide leading-6 text-blue-950">
                             Dashboard
                         </div>
-                        <div className='flex gap-5'>
+                        <div className='flex flex-wrap md:flex-nowrap gap-5'>
                             <div className='flex justify-center shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] p-3 rounded-md w-[500px]'>
                                 <div className="w-[130px] flex flex-col justify-center items-center flex-1">
                                     <div className="justify-center text-xl font-medium leading-6 text-black">
@@ -115,7 +110,7 @@ const AdminDashboard = () => {
                                     </div>
                                     <div className="flex flex-col mt-7 whitespace-nowrap">
                                         <div className="justify-center text-3xl font-bold tracking-tighter leading-8 text-zinc-900">
-                                            23,543
+                                            {data.users}
                                         </div>
                                     </div>
                                 </div>
@@ -135,7 +130,7 @@ const AdminDashboard = () => {
                                     </div>
                                     <div className="flex flex-col mt-7 whitespace-nowrap">
                                         <div className="justify-center text-3xl font-bold tracking-tighter leading-8 text-zinc-900">
-                                            543
+                                            {data.revenue} $
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +150,7 @@ const AdminDashboard = () => {
                                     </div>
                                     <div className="flex flex-col mt-7 whitespace-nowrap">
                                         <div className="justify-center text-3xl font-bold tracking-tighter leading-8 text-zinc-900">
-                                            2
+                                            {data.users}
                                         </div>
                                     </div>
                                 </div>
@@ -171,12 +166,27 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className='mx-auto w-full'> */}
-                <SpreadGraph />
-                {/* </div> */}
+                {
+                    !loading &&
+                    <SpreadGraph data={{
+                        labels,
+                        datasets: [
+                            {
+                                label: 'Value',
+                                data: dateRecord,
+                                fill: false,
+                                backgroundColor: 'rgba(75,192,192,0.2)',
+                                borderColor: 'rgba(75,192,192,1)',
+                                borderWidth: 2,
+                                pointRadius: 5,
+                                pointHoverRadius: 8,
+                            },
+                        ],
+                    }} />
+                }
             </div>
         </div>
-    )
+    );
 }
 
-export default AdminDashboard
+export default AdminDashboard;
