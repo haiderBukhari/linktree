@@ -11,7 +11,7 @@ function Index() {
     const columns = [
         "Name",
         "Email Address",
-        "Resturant Name",
+        "Phone Number",
         "Request Date",
     ];
 
@@ -77,13 +77,13 @@ function Index() {
                     <div key={index} className="min-w-0 flex gap-5 mt-10 justify-between items-center p-5 bg-white shadow-[0px_5px_10px_1px_rgba(0,0,0,0.3)] overflow-auto w-full">
                         <div className="w-[100px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{item.name}</div>
                         <div className="w-[180px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{item.email}</div>
-                        <div className="w-[140px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{'iidid 9ehuej'}</div>
+                        <div className="w-[140px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{item.phoneNumber || '-'}</div>
                         <div className="w-[100px] flex-shrink-0 whitespace-nowrap overflow-hidden text-ellipsis">{item.createdAt.slice(0, 10)}</div>
                         {
                             item.isTrialVerified ?
                                 <button className="justify-center self-stretch p-2.5 font-semibold text-center text-white whitespace-nowrap bg-indigo-400 rounded-xl border-2 border-indigo-400 border-solid">
                                     Approved
-                                </button> : <button className="justify-center self-stretch p-2.5 font-semibold text-center text-black whitespace-nowrap rounded-xl border-2 border-indigo-400 border-solid bg-white">
+                                </button> : <button onClick={() => approveUser(item._id)} className="justify-center self-stretch p-2.5 font-semibold text-center text-black whitespace-nowrap rounded-xl border-2 border-indigo-400 border-solid bg-white">
                                     Approve
                                 </button>
                         }

@@ -7,8 +7,8 @@ export default function Services() {
                 Our Services
             </div>
             <div className="px-5 mt-10 w-full max-w-[1216px] max-md:mt-10 max-md:max-w-full mx-auto">
-                <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-                    <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+                <div className="grid grid-cols-3 gap-5 max-md:flex max-md:flex-col max-md:gap-0">
+                    <div style={{ boxShadow: '0px 9px 13px 0px rgba(0, 0, 0, 0.5)', borderRadius: "20px", height: "300px" }} className="flex flex-col gap-5 max-md:ml-0 max-md:w-full pb-0 mb-36 md:mb-0">
                         <div className="flex flex-col justify-center p-5 w-full text-center text-black bg-white rounded-3xl shadow-sm max-md:mt-10">
                             <img
                                 loading="lazy"
@@ -26,7 +26,7 @@ export default function Services() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                    <div style={{ boxShadow: '0px 9px 13px 0px rgba(0, 0, 0, 0.5)', borderRadius: "20px", height: "400px" }} className="flex flex-col ml-5 max-md:ml-0 max-md:w-full pb-30 mb-20 md:mb-0">
                         <div className="flex flex-col grow justify-center p-5 w-full text-center text-black bg-white rounded-3xl shadow-sm max-md:mt-10">
                             <img
                                 loading="lazy"
@@ -44,7 +44,7 @@ export default function Services() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                    <div style={{ boxShadow: '0px 9px 13px 0px rgba(0, 0, 0, 0.5)', borderRadius: "20px", height: "300px" }} className="flex flex-col max-md:ml-0 max-md:w-full pb-0 mb-36 md:mb-0">
                         <div className="flex flex-col justify-center p-5 w-full text-center text-black bg-white rounded-3xl shadow-sm max-md:mt-10">
                             <img
                                 loading="lazy"
